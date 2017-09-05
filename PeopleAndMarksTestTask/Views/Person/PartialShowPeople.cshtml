@@ -1,0 +1,13 @@
+﻿@using PeopleAndMarksTestTask.Models
+@model IEnumerable<Person>
+<tr class="danger">
+    <td>last name first name</td>
+    <td>value</td>
+</tr>
+@foreach (var person in Model)
+{
+    <tr>
+        <td>@person.FirstName @person.LastName</td>
+        <td>@person.Mark.Value</td>
+    </tr>
+}

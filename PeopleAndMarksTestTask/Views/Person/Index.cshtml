@@ -1,0 +1,75 @@
+﻿@using PeopleAndMarksTestTask.Models
+@model IEnumerable<Person>
+@{
+    ViewBag.Title = "Home Page";
+}
+<h1>People table</h1>
+
+<!--Add new person-->
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Add new person</button>
+<select id="sortValue" class="right">
+    <option value="true">value</option>
+    <option value="false">last name</option>
+</select>
+<select id="rowNumbers" class="text-right">
+    <option value="10">10</option>
+    <option value="20">20</option>
+    <option value="50">50</option>
+</select>
+
+<div class="table-responsive">
+    <table id="myTable" class="table table-bordered">
+        @Html.Partial("PartialShowPeople", Model)
+    </table>
+</div>
+<input hidden id="totalPeople" type="number" value="@ViewBag.totalPeople" />
+<div class="row">
+
+    <div class="col-xs-6 text-right">
+        <button id="prevButton" class="btn btn-info">Prev</button>
+    </div>
+
+    <div class="col-xs-6 text-left">
+        <button id="nextButton" class="btn btn-info">Next</button>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add new person</h4>
+            </div>
+            <div class="modal-body">
+
+                @using (Html.BeginForm("AddNewPerson", "Person", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.FirstOrDefault().FirstName)
+                        @Html.TextBoxFor(x => x.FirstOrDefault().FirstName, new { @class = "form-control", Value = "" })
+                        <p> @Html.ValidationMessageFor(x => x.FirstOrDefault().FirstName)</p>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.FirstOrDefault().LastName)
+                        @Html.TextBoxFor(x => x.FirstOrDefault().LastName, new { @class = "form-control", Value = "" })
+                        <p> @Html.ValidationMessageFor(x => x.FirstOrDefault().LastName)</p>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.FirstOrDefault().Mark.Value)
+                        @Html.TextBoxFor(x => x.FirstOrDefault().Mark.Value, new { type = "number", min = "1", max = "1000000", step = "1" })
+                        <p> @Html.ValidationMessageFor(x => x.FirstOrDefault().Mark.Value)</p>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" id="submitRegistration" class="btn btn-success" value="Save" />
+                    </div>
+
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
